@@ -7,7 +7,7 @@ import React from "react";
 
 const Navbar =async () => {
 //   const { userId } = auth();
-const { userId, redirectToSignIn } = await auth();
+const { userId } = await auth();
 console.log(userId);
 
   return (
