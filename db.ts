@@ -1,33 +1,10 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose"
 
-const MONGODB_URL = process.env.MONGODB_URL!;
+const connectToDB = async()=>{
+    const DBUrl = "mongodb+srv://nayanhetc61:nayan@cluster0.pxtec.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-interface MongooseConn {
-  conn: Mongoose | null;
-  promise: Promise<Mongoose> | null;
+    mongoose.connect(DBUrl)
+    .then(()=>console.log("DB connected Successfully"))
+    .catch((e)=>console.log(e))
 }
-
-let cached: MongooseConn = (global as any).mongoose;
-
-if (!cached) {
-  cached = (global as any).mongoose = {
-    conn: null,
-    promise: null,
-  };
-}
-
-export const connect = async () => {
-  if (cached.conn) return cached.conn;
-
-  cached.promise =
-    cached.promise ||
-    mongoose.connect(MONGODB_URL, {
-      dbName: "clerk_webhooks",
-      bufferCommands: false,
-      connectTimeoutMS: 30000,
-    });
-
-  cached.conn = await cached.promise;
-
-  return cached.conn;
-};
+export default connectToDB;

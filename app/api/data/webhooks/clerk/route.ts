@@ -62,7 +62,7 @@ export async function POST(req: Request) {
         firstName:first_name,
         lastName:last_name,
     }
-    console.log(user);
+    console.log("user",user);
     
     const newUser = await createUser(user);
     const client = await clerkClient();
